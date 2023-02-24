@@ -1,0 +1,16 @@
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        if(s.length()==0) return 0;
+        HashMap<Character,Integer> map=new HashMap<Character,Integer>();//
+        int max=1;
+        int left=0;
+        for(int i=0;i<s.length();i++){
+            if(map.containsKey(s.charAt(i))){
+                left=Math.max(left,map.get(s.charAt(i))+1); //left 显然不会往后倒退这点顺推确实不好想但逆推发现是可行的
+            }
+            map.put(s.charAt(i),i);  //每轮要将当前新的映射关系添加进去(即新加入字符所对应的索引)
+            max=Math.max(max,i-left+1);
+        }
+        return max;
+    }
+}
