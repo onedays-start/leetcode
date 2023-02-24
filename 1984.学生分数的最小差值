@@ -1,0 +1,45 @@
+class Solution {
+    public int minimumDifference(int[] nums, int k) {
+        Arrays.sort(nums);//可以使用Arrays类的方法排序或自己写排序方法
+        int min=nums[k-1]-nums[0]; //如k=1则选取一个学生和自己的分数比较所以要减1
+        for (int i = 0; i < nums.length-k+1; i++) {  //-k+1这里仔细分析下与数组长度的关系就行了
+            if((nums[i+k-1]-nums[i])<min){
+                min=nums[i+k-1]-nums[i];
+            }
+            else{
+                min=min;
+            }
+        }
+        return min;
+    }
+      public static void quickSort(int[] num,int i,int j){
+        int low=i;
+        int high=j;
+        if(low>high){    注意这个只能写在这里不然num[low]这个low就可能是超过索引范围,因为high或low最后会移到-1和num.length而不是num.length-1;
+            return;
+        }
+        int baseNumber=num[low];
+        while(low!=high){
+            while(true){
+                if(high<=low||num[high]<baseNumber){
+                    break;
+                }
+                high--;
+            }
+            while(true){
+                if(high<=low||num[low]>baseNumber){
+                    break;
+                }
+                low++;
+            }
+            int temp=num[low];
+            num[low]=num[high];
+            num[high]=temp;
+        }
+        int temp=num[i];
+        num[i]=num[low];
+        num[low]=temp;
+        quickSort(num,i,low-1);
+        quickSort(num,low+1,j);
+    }
+}
