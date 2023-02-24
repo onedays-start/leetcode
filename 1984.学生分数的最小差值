@@ -1,3 +1,4 @@
+//将数组排好序安装滑动窗口的思想逐步使用步长为k的两个数组来减,从数学上来说这是显然的因为每两个数之间的距离是最近的和在一起自然也是最近的
 class Solution {
     public int minimumDifference(int[] nums, int k) {
         Arrays.sort(nums);//可以使用Arrays类的方法排序或自己写排序方法
