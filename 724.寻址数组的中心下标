@@ -1,0 +1,58 @@
+//此算法只需计算一半然后*2即可进行判断节省了不少时间
+class Solution {
+    public int pivotIndex(int[] nums) {
+        int total = Arrays.stream(nums).sum();
+        int sum = 0;
+        int n = nums.length;
+        for (int i = 0; i < n; i++) {
+            if(sum*2+nums[i]==total){ //此时sum还未加入本轮的sum即没有加入sum[i]符合题意
+                return i;
+            }
+            sum += nums[i];
+        }
+        return -1;
+    }
+}
+
+//此解法为暴力
+class Solution {
+    public int pivotIndex(int[] nums) {
+        int leftnum=0;
+        int rightnum=0;
+        if (nums.length==1){
+            return 0;
+        }
+        for(int i=0;i<nums.length;i++){
+            if(i==0){
+                leftnum=0;
+                for (int k=i+1;k<nums.length;k++){
+                    rightnum+=nums[k];
+                }
+                if(leftnum==rightnum){
+                    return i;
+                }
+            }
+            if(i==nums.length-1){
+                rightnum=0;
+                for(int j=0;j<i;j++){
+                    leftnum+=nums[j];
+                }
+                if(leftnum==rightnum){
+                    return i;
+                }
+            }
+             rightnum=0;  //需要先清除前两种情况的赋值
+            leftnum=0;
+           for(int j=0;j<i;j++){
+               leftnum=leftnum+nums[j];
+           }
+           for (int k=i+1;k<nums.length;k++){
+               rightnum=rightnum+nums[k];
+           }
+           if(leftnum==rightnum){
+               return i;
+           }
+        }
+        return -1;
+    }
+}
