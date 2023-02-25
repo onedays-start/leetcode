@@ -1,0 +1,29 @@
+使用二分查找
+class Solution {
+    public int searchInsert(int[] nums, int target) {
+        return binarySearch(nums,target);
+    }
+    public int binarySearch(int[] nums,int target){
+      int min=0;
+      int max=nums.length-1;
+      while (true){
+          int mid=(min+max)/2;//默认向下取整
+          if(target>nums[mid]){
+              min=mid+1;   //先移动
+              if(max<min) {   //进行结束添加判断
+                  return mid+1;//目标值更大时要向当前元素的后方插入
+              }
+          }
+          if(target<nums[mid]){
+              max=mid-1;
+              if(max<min) {   
+                  return mid; //目标值更小时向当前位置插入将当前位置元素挤入下一个位置
+              }
+          }
+          if(target==nums[mid]){
+              return mid;
+          }
+      }
+      }
+    
+}
