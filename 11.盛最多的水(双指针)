@@ -1,0 +1,20 @@
+//使用双指针,初始时将两个指针分别指向数组两侧计算面积可将这种情形作为初始面积,如果要寻找到比其值更大的面积就需要移动两侧的指针,而如果统一移动值更大的指针就代表这个初始值就是最大的了,
+因为面积由短板来决定,向内移动指针底边长必然缩小,且短板不变,显然要获得可能的更大值应该移动短边,移动一次后这时问题规模就减小了然后进行重复就行了
+class Solution {
+    public int maxArea(int[] height) {
+        int i=0;
+        int j=height.length-1;
+        int area=0;
+        while (j>i){
+            int areaTemp=(j-i)*Math.min(height[i],height[j]);
+            area=Math.max(area,areaTemp);
+            if(height[i]>height[j]){
+                --j;
+            }
+            else {
+                ++i;
+            }
+        }
+        return area;
+    }
+}
