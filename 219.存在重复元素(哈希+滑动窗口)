@@ -1,0 +1,16 @@
+使用haseset维持k个空间
+class Solution {
+    public boolean containsNearbyDuplicate(int[] nums, int k) {
+        HashSet<Integer> set=new HashSet<>();
+        for (int i=0;i<nums.length;i++){
+            if(set.contains(nums[i])){
+                return true;
+            }
+            set.add(nums[i]);
+            if(set.size()>k){  //注意这里HashSet维持k而不是k+1的原因是在上面的if进行比较时就是用的第k+1个来比较的
+                set.remove(nums[i-k]);
+            }
+        }
+        return false;
+    }
+}
