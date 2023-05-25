@@ -1,0 +1,24 @@
+//深度优先遍历 每个结点都入栈直到叶节点开始层层返回 栈中也维持着各节点的数据，通过for循环可以记录走到那个结点了，如一个结点连接了
+5个结点，则栈中的for循环也会保持
+class Solution {
+	public:
+	vector<vector<int>> ans; //二维数组，保存所有符合要求的路径
+	vector<int> stk; //维持一条路径
+	void dfs(vector<vector<int>>& graph, int x) {
+		if (x == graph.size() - 1) {  //当当前访问结点就是目的结点时将目前的路径加入ans
+			ans.push_back(stk);//维持当前路径
+			return;
+		}
+		for (auto& y : graph[x]) { //遍历当前结点所连接的结点 如granph[0]就记录的是0结点所连接的结点
+			stk.push_back(y);//将该结点先加入stk 维持当前路径
+			dfs(graph, y); //递归
+			stk.pop_back(); //所有的结点最后都要出栈，因为stk只维持当前路径
+		}
+	}
+	vector<vector<int>> allPathsSourceTarget(vector<vector<int>>& graph) {
+		stk.push_back(0);//每条路径最终肯定都要从0开始
+		dfs(graph, 0);
+		return ans;
+	}
+ };
+ 
