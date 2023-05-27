@@ -1,0 +1,25 @@
+快慢指针其实没有指针，如本题一个数运算两次一个运算一次，慢的会走快的走过的路径，如果两者相遇则显然有环(因为快的相当于又走会之前走过的路了)，相当与有个隐式的链表
+但一个走两步一个走一步如果有环肯定会碰到吗？似乎是会的，但还没想到严格的证明
+class Solution {
+public:
+    int bitSquareSum(int n) {
+        int sum = 0;
+        while(n > 0)
+        {
+            int bit = n % 10;
+            sum += bit * bit;
+            n = n / 10;
+        }
+        return sum;
+    }
+    
+    bool isHappy(int n) {
+        int slow = n, fast = n;
+        do{
+            slow = bitSquareSum(slow);
+            fast = bitSquareSum(fast);
+            fast = bitSquareSum(fast);
+        }while(slow != fast);
+        return slow == 1;
+    }
+};
