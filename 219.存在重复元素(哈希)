@@ -1,0 +1,14 @@
+通过遍历nums数组，结合查找哈希表 键为数组元素，值为数组下标
+class Solution {
+public:
+    bool containsNearbyDuplicate(vector<int>& nums, int k) {
+        unordered_map<int, int> map; //定义哈希map变量
+        for (int i=0; i < nums.size(); i++) {  //遍历数组
+            if (map.count(nums[i]) && i - map[nums[i]]<=k) { //如果当前数组元素包含在哈希表中且数组下标符合要求则返回ture
+                return true;
+            }
+            map[nums[i]] = i; 如果不包含或者下标超过k则更新map
+        }
+        return false;
+    }
+};
